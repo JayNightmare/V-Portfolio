@@ -4,7 +4,7 @@ import Homepage from "./pages/homepage";
 export default function App() {
     return (
         <Routes>
-            <Route path="/V-Portfolio/" element={<Homepage />} />
+            <Route path="/" element={<Homepage />} />
         </Routes>
     );
 }

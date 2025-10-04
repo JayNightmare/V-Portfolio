@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "type": "module",
-  "homepage": "https://jaynightmare.github.io/V-Portfolio/",
+  "homepage": "https://vienna.nexusgit.info",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
