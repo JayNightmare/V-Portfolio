@@ -1,5 +1,3 @@
-import React from "react";
-
 const posters = [
     {
         title: "Blast - Site Entrance",
