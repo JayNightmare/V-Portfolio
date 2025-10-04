@@ -1,0 +1,25 @@
+{
+  "name": "v-portfolio",
+  "version": "0.0.1",
+  "private": true,
+  "homepage": "https://portfolio.vienna.info",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "npm run dev"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.26.2",
+    "v-portfolio": "file:"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.0.0",
+    "autoprefixer": "^10.4.14",
+    "postcss": "^8.4.27",
+    "tailwindcss": "^3.4.7",
+    "vite": "^5.0.0"
+  }
+}
