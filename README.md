@@ -1,4 +1,7 @@
+<div align=center>
+  
 # V Portfolio (React + Vite)
+</div>
 
 Minimal React (JavaScript) scaffold using Vite.
 
