@@ -9,9 +9,10 @@
     "build": "vite build",
     "preview": "vite preview",
     "start": "npm run dev",
-  "lint": "eslint ."
+    "lint": "eslint ."
   },
   "dependencies": {
+    "motion": "^12.23.24",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.26.2",
