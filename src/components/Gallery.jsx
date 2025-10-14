@@ -1,20 +1,11 @@
 import { Link } from "react-router-dom";
+import { motion } from "motion/react";
+import galleryItems from "../data/galleryItems.json";
+
+const FEATURED_COUNT = 3;
 
 export default function GallerySection() {
-    const gallery = [
-        {
-            title: "Image 1",
-            image: "https://picsum.photos/1080/1920",
-        },
-        {
-            title: "Image 2",
-            image: "https://picsum.photos/1080/1920",
-        },
-        {
-            title: "Image 3",
-            image: "https://picsum.photos/1080/1920",
-        },
-    ];
+    const featured = galleryItems.slice(0, FEATURED_COUNT);
 
     return (
         <section id="gallery" className="bg-slate-100 py-24 text-slate-900">
@@ -29,20 +20,29 @@ export default function GallerySection() {
                 </header>
 
                 <div className="mt-16 grid gap-8 md:grid-cols-3">
-                    {gallery.map((poster) => (
-                        <article
-                            key={poster.title}
-                            className="overflow-hidden rounded-3xl bg-slate-900 shadow-xl"
+                    {featured.map((item) => (
+                        <Link
+                            key={item.slug}
+                            to={`/gallery/${item.slug}`}
+                            state={{ layoutId: `gallery-item-${item.slug}` }}
+                            className="group"
                         >
-                            <img
-                                src={poster.image}
-                                alt={poster.title}
-                                className="h-96 w-full object-cover"
-                            />
-                            <div className="px-6 py-4 text-center text-sm font-semibold uppercase tracking-[0.3em] text-white">
-                                {poster.title}
-                            </div>
-                        </article>
+                            <motion.article
+                                layoutId={`gallery-item-${item.slug}`}
+                                className="h-full overflow-hidden rounded-3xl bg-slate-900 shadow-xl transition group-hover:shadow-2xl"
+                                whileHover={{ y: -8 }}
+                            >
+                                <motion.img
+                                    src={item.mainImage}
+                                    alt={item.title}
+                                    className="h-96 w-full object-cover transition duration-500 group-hover:scale-105"
+                                    loading="lazy"
+                                />
+                                <div className="px-6 py-5 text-center text-sm font-semibold uppercase tracking-[0.3em] text-white">
+                                    {item.title}
+                                </div>
+                            </motion.article>
+                        </Link>
                     ))}
                 </div>
 

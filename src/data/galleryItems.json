@@ -1,0 +1,90 @@
+[
+  {
+    "slug": "starlight-harbor",
+    "title": "Starlight Harbor",
+    "type": "illustration",
+    "description": "Evening matte painting exploring reflective lighting and whimsical architecture along a floating pier.",
+    "year": 2025,
+    "mainImage": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1600&q=80",
+    "dimensions": "4096 × 2304",
+    "software": ["Photoshop", "After Effects"],
+    "tags": ["color scripting", "environment"],
+    "palette": ["#121739", "#e29ec5", "#6ad2ff", "#ffd27f"]
+  },
+  {
+    "slug": "clockwork-parade",
+    "title": "Clockwork Parade",
+    "type": "animation",
+    "description": "Character-focused loop celebrating mechanical motion with overlapping action and rim lighting.",
+    "year": 2024,
+    "mainImage": "https://images.unsplash.com/photo-1470259078422-826894b933aa?auto=format&fit=crop&w=1600&q=80",
+    "timelineFrames": [
+      "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=1600&q=80",
+      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80",
+      "https://images.unsplash.com/photo-1446057032654-9d8885db76c6?auto=format&fit=crop&w=1600&q=80",
+      "https://images.unsplash.com/photo-1514894780887-121968d00567?auto=format&fit=crop&w=1600&q=80",
+      "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=1600&q=80"
+    ],
+    "dimensions": "1920 × 1080",
+    "software": ["TVPaint", "After Effects"],
+    "tags": ["character", "loop"],
+    "palette": ["#130f40", "#f6c90e", "#f19066", "#574b90"]
+  },
+  {
+    "slug": "forest-chorus",
+    "title": "Forest Chorus",
+    "type": "layered",
+    "description": "Layered paper-cut style scene that stacks three-dimensional flora and fauna with parallax.",
+    "year": 2025,
+    "mainImage": "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1600&q=80",
+    "layers": [
+      {
+        "label": "Foreground fauna",
+        "image": "https://images.unsplash.com/photo-1473773508845-188df298d2d1?auto=format&fit=crop&w=1600&q=80"
+      },
+      {
+        "label": "Mid-ground canopy",
+        "image": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80"
+      },
+      {
+        "label": "Background glow",
+        "image": "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1600&q=80"
+      }
+    ],
+    "dimensions": "3240 × 3240",
+    "software": ["Illustrator", "After Effects"],
+    "tags": ["parallax", "mixed media"],
+    "palette": ["#0b3d20", "#74d680", "#fdf7c3", "#f6b8b8"]
+  },
+  {
+    "slug": "aurora-ballet",
+    "title": "Aurora Ballet",
+    "type": "animation",
+    "description": "Cel animated dance cycle focusing on cloth simulation with volumetric lighting.",
+    "year": 2023,
+    "mainImage": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1600&q=80",
+    "timelineFrames": [
+      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1600&q=80",
+      "https://images.unsplash.com/photo-1526481280695-3c469361d269?auto=format&fit=crop&w=1600&q=80",
+      "https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?auto=format&fit=crop&w=1600&q=80",
+      "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1600&q=80",
+      "https://images.unsplash.com/photo-1510626176961-4b37d0c4a22e?auto=format&fit=crop&w=1600&q=80"
+    ],
+    "dimensions": "2048 × 1152",
+    "software": ["TVPaint", "Photoshop"],
+    "tags": ["motion", "dance"],
+    "palette": ["#190933", "#ff99c8", "#7b2cbf", "#b5e48c"]
+  },
+  {
+    "slug": "luminous-atelier",
+    "title": "Luminous Atelier",
+    "type": "other",
+    "description": "Visual development board combining paint-overs and signage explorations for a story location.",
+    "year": 2024,
+    "mainImage": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1600&q=80",
+    "dimensions": "4096 × 2160",
+    "software": ["Photoshop", "Blender"],
+    "tags": ["visual development", "ideation"],
+    "palette": ["#1a1042", "#f896d8", "#ffbd00", "#bde0fe"]
+  }
+]

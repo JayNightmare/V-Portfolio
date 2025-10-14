@@ -1,22 +1,71 @@
 import { Link } from "react-router-dom";
+import { motion } from "motion/react";
+import galleryItems from "../data/galleryItems.json";
+
+const TYPE_LABELS = {
+    animation: "Animation",
+    illustration: "Illustration",
+    layered: "Layered Piece",
+    other: "Project",
+};
 
 export default function ExtraGallery() {
     return (
-        <main className=" text-white w-full">
-            <section
-                id="extra-gallery"
-                className="min-h-screen overflow-hidden text-white flex items-center justify-center flex-col"
-            >
-                <div className="mb-2 w-full h-full bg-slate-950 py-3 flex justify-center">
-                    <header className="text-center">
-                        <h2 className="text-3xl font-extrabold uppercase tracking-[0.4em] text-slate-800">
-                            Coming Soon...
-                        </h2>
-                    </header>
+        <main className="w-full bg-slate-950 text-white">
+            <section className="mx-auto w-full max-w-6xl px-6 py-24">
+                <header className="text-center">
+                    <p className="text-xs font-semibold uppercase tracking-[0.45em] text-slate-500">
+                        Archive
+                    </p>
+                    <h1 className="mt-3 text-4xl font-extrabold tracking-tight">
+                        Full Gallery
+                    </h1>
+                    <p className="mt-4 text-base text-slate-400">
+                        Browse every piece and jump into the detail view for
+                        motion and layer explorations.
+                    </p>
+                </header>
+
+                <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                    {galleryItems.map((item) => (
+                        <Link
+                            key={item.slug}
+                            to={`/gallery/${item.slug}`}
+                            state={{ layoutId: `gallery-item-${item.slug}` }}
+                            className="group"
+                        >
+                            <motion.article
+                                layoutId={`gallery-item-${item.slug}`}
+                                className="h-full overflow-hidden rounded-3xl border border-slate-800/60 bg-slate-900/60 shadow-lg transition group-hover:border-sky-400/40 group-hover:shadow-sky-900/30"
+                                whileHover={{ y: -6 }}
+                            >
+                                <motion.img
+                                    src={item.mainImage}
+                                    alt={item.title}
+                                    className="h-64 w-full object-cover transition duration-500 group-hover:scale-105"
+                                    loading="lazy"
+                                />
+                                <div className="px-6 py-5">
+                                    <p className="text-xs uppercase tracking-[0.45em] text-slate-400">
+                                        {TYPE_LABELS[item.type] || item.type}
+                                    </p>
+                                    <h2 className="mt-2 text-lg font-semibold tracking-tight text-white">
+                                        {item.title}
+                                    </h2>
+                                </div>
+                            </motion.article>
+                        </Link>
+                    ))}
                 </div>
-                <Link to="/" className="text-zinc-200/50">
-                    Go Back
-                </Link>
+
+                <div className="mt-16 text-center">
+                    <Link
+                        to="/"
+                        className="inline-flex items-center gap-3 rounded-full border border-slate-700/70 px-6 py-3 text-xs font-semibold uppercase tracking-[0.35em] text-slate-300 transition hover:border-slate-500 hover:text-white"
+                    >
+                        ← Back home
+                    </Link>
+                </div>
             </section>
         </main>
     );
