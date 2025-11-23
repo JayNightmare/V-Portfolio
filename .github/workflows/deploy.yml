@@ -1,4 +1,4 @@
-name: Deploy
+name: Deploy to Linode
 
 on:
   push:
@@ -6,18 +6,9 @@ on:
 
 jobs:
   deploy:
-    name: Deploy to GitHub Pages
+    name: Deploy to Linode
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
-
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
       - name: Checkout repository
@@ -35,14 +26,13 @@ jobs:
       - name: Build application
         run: npm run build
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-
-      - name: Upload to GitHub Pages
-        uses: actions/upload-pages-artifact@v3
+      - name: Deploy to Linode via Rsync
+        uses: easingthemes/ssh-deploy@v5.0.0
         with:
-          path: dist/
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          SSH_PRIVATE_KEY: ${{ secrets.LINODE_SSH_KEY }}
+          ARGS: "-rlgoDzvc -i"
+          SOURCE: "dist/"
+          REMOTE_HOST: ${{ secrets.LINODE_HOST }}
+          REMOTE_USER: ${{ secrets.LINODE_USER }}
+          TARGET: ${{ secrets.LINODE_TARGET_DIR }}
+          # EXCLUDE: "/dist/, /node_modules/"
