@@ -21,6 +21,9 @@ export default [
             globals: {
                 document: "readonly",
                 window: "readonly",
+                localStorage: "readonly",
+                fetch: "readonly",
+                console: "readonly",
             },
         },
         plugins: {
