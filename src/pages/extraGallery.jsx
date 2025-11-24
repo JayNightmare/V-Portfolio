@@ -19,6 +19,7 @@ export default function ExtraGallery() {
                 const data = await fetchGalleryItems();
                 setItems(data);
             } catch (error) {
+                // eslint-disable-next-line no-undef
                 console.error("Failed to load gallery items:", error);
             }
         };

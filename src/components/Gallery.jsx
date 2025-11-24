@@ -14,6 +14,7 @@ export default function GallerySection() {
                 const items = await fetchGalleryItems();
                 setFeatured(items.slice(0, FEATURED_COUNT));
             } catch (error) {
+                // eslint-disable-next-line no-undef
                 console.error("Failed to load gallery items:", error);
             }
         };

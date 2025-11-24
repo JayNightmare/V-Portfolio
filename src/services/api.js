@@ -1,6 +1,7 @@
 const API_URL = import.meta.env.VITE_API_URL || "/api";
 
 export const fetchGalleryItems = async () => {
+    // eslint-disable-next-line no-undef
     const response = await fetch(`${API_URL}/gallery`);
     if (!response.ok) {
         throw new Error("Failed to fetch gallery items");
@@ -9,6 +10,7 @@ export const fetchGalleryItems = async () => {
 };
 
 export const fetchGalleryItemBySlug = async (slug) => {
+    // eslint-disable-next-line no-undef
     const response = await fetch(`${API_URL}/gallery/${slug}`);
     if (!response.ok) {
         throw new Error("Failed to fetch gallery item");
