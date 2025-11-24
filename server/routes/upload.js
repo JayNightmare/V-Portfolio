@@ -9,7 +9,7 @@ router.post("/", verifyToken, upload.single("image"), (req, res) => {
         return res.status(400).json({ message: "No file uploaded" });
     }
 
-    const baseUrl = `${req.protocol}://${req.get("host")}/uploads/`;
+    const baseUrl = `${req.protocol}://${req.get("host")}/api/uploads/`;
     const imageUrl = baseUrl + req.file.filename;
 
     res.json({ url: imageUrl });
