@@ -141,6 +141,32 @@ export default function GalleryItemForm({ initialData, onSubmit, onCancel }) {
         }));
     };
 
+    const handleBulkUpload = async (e) => {
+        const files = Array.from(e.target.files);
+        if (files.length === 0) return;
+
+        setUploading(true);
+        try {
+            const token = localStorage.getItem("token");
+            const uploadPromises = files.map((file) =>
+                uploadImage(file, token)
+            );
+            const results = await Promise.all(uploadPromises);
+            const newUrls = results.map((res) => res.url);
+
+            setFormData((prev) => ({
+                ...prev,
+                timelineFrames: [...prev.timelineFrames, ...newUrls],
+            }));
+        } catch (err) {
+            // eslint-disable-next-line no-undef
+            alert("Bulk upload failed: " + err.message);
+        } finally {
+            setUploading(false);
+            e.target.value = "";
+        }
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         const submissionData = {
@@ -321,63 +347,92 @@ export default function GalleryItemForm({ initialData, onSubmit, onCancel }) {
             </div>
 
             {formData.type === "animation" && (
-                <div className="space-y-2">
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-500">
-                        Timeline Frames
-                    </label>
-                    {formData.timelineFrames.map((frame, index) => (
-                        <div key={index} className="flex gap-2 items-center">
-                            {frame && (
-                                <img
-                                    src={frame}
-                                    alt=""
-                                    className="h-10 w-10 rounded object-cover bg-slate-800"
-                                />
-                            )}
-                            <div className="flex-1">
-                                <input
-                                    type="file"
-                                    accept="image/png, image/jpeg, image/gif"
-                                    onChange={(e) =>
-                                        handleFileUpload(
-                                            e,
-                                            "timelineFrames",
-                                            index
-                                        )
-                                    }
-                                    className="w-full text-xs text-slate-400 file:mr-2 file:py-1 file:px-2 file:rounded-full file:border-0 file:text-xs file:bg-slate-800 file:text-sky-400"
-                                />
-                                <input
-                                    type="text"
-                                    value={frame}
-                                    onChange={(e) =>
-                                        handleArrayChange(
-                                            index,
-                                            e.target.value,
-                                            "timelineFrames"
-                                        )
-                                    }
-                                    className="mt-1 w-full rounded bg-slate-800 p-1 border border-slate-700 focus:border-sky-500 outline-none text-xs"
-                                    placeholder="Frame URL"
-                                />
-                            </div>
+                <div className="space-y-4 rounded-xl bg-slate-900/50 p-4 border border-slate-800">
+                    <div className="flex justify-between items-center">
+                        <label className="block text-xs font-bold uppercase tracking-wider text-slate-500">
+                            Timeline Frames
+                        </label>
+                        <div className="relative">
+                            <input
+                                type="file"
+                                multiple
+                                accept="image/png, image/jpeg, image/gif"
+                                onChange={handleBulkUpload}
+                                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                                disabled={uploading}
+                            />
                             <button
                                 type="button"
-                                onClick={() =>
-                                    removeArrayItem(index, "timelineFrames")
-                                }
-                                className="text-red-400 hover:text-red-300"
+                                className={`px-3 py-1.5 rounded text-xs font-bold uppercase tracking-wider transition ${
+                                    uploading
+                                        ? "bg-slate-800 text-slate-500 cursor-wait"
+                                        : "bg-sky-600/20 text-sky-400 hover:bg-sky-600/30"
+                                }`}
                             >
-                                ×
+                                {uploading
+                                    ? "Uploading..."
+                                    : "Bulk Upload Images"}
                             </button>
                         </div>
-                    ))}
+                    </div>
+
+                    <div className="space-y-2 max-h-60 overflow-y-auto pr-2 custom-scrollbar">
+                        {formData.timelineFrames.map((frame, index) => (
+                            <div
+                                key={index}
+                                className="flex gap-2 items-center bg-slate-900 p-2 rounded border border-slate-800"
+                            >
+                                <span className="text-xs text-slate-500 w-6">
+                                    {index + 1}
+                                </span>
+                                {frame && (
+                                    <img
+                                        src={frame}
+                                        alt=""
+                                        className="h-8 w-8 rounded object-cover bg-slate-800"
+                                    />
+                                )}
+                                <div className="flex-1 min-w-0">
+                                    <input
+                                        type="text"
+                                        value={frame}
+                                        onChange={(e) =>
+                                            handleArrayChange(
+                                                index,
+                                                e.target.value,
+                                                "timelineFrames"
+                                            )
+                                        }
+                                        className="w-full bg-transparent text-xs text-slate-300 outline-none truncate"
+                                        placeholder="Frame URL"
+                                        title={frame}
+                                    />
+                                </div>
+                                <button
+                                    type="button"
+                                    onClick={() =>
+                                        removeArrayItem(index, "timelineFrames")
+                                    }
+                                    className="text-slate-600 hover:text-red-400 transition"
+                                >
+                                    ×
+                                </button>
+                            </div>
+                        ))}
+                        {formData.timelineFrames.length === 0 && (
+                            <div className="text-center py-8 text-slate-600 text-xs italic border-2 border-dashed border-slate-800 rounded">
+                                No frames added yet. Use bulk upload or add
+                                manually.
+                            </div>
+                        )}
+                    </div>
+
                     <button
                         type="button"
                         onClick={() => addArrayItem("timelineFrames")}
-                        className="text-xs text-sky-400 hover:text-sky-300"
+                        className="text-xs text-slate-500 hover:text-sky-400 transition flex items-center gap-1"
                     >
-                        + Add Frame
+                        <span>+</span> Add Single Frame URL
                     </button>
                 </div>
             )}
