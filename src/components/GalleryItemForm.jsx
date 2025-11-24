@@ -45,6 +45,40 @@ export default function GalleryItemForm({ initialData, onSubmit, onCancel }) {
         const file = e.target.files[0];
         if (!file) return;
 
+        // Auto-populate metadata for Main Image
+        if (field === "mainImage" && index === null) {
+            const nameWithoutExt = file.name.replace(/\.[^/.]+$/, "");
+
+            setFormData((prev) => {
+                const updates = {};
+                if (!prev.title) {
+                    updates.title = nameWithoutExt
+                        .replace(/[-_]/g, " ")
+                        .replace(/\b\w/g, (l) => l.toUpperCase());
+                }
+                if (!prev.slug) {
+                    updates.slug = nameWithoutExt
+                        .toLowerCase()
+                        .replace(/[^a-z0-9]+/g, "-")
+                        .replace(/(^-|-$)+/g, "");
+                }
+                return { ...prev, ...updates };
+            });
+
+            // eslint-disable-next-line no-undef
+            const img = new Image();
+            img.onload = () => {
+                setFormData((prev) => ({
+                    ...prev,
+                    dimensions: `${img.width}px x ${img.height}px`,
+                }));
+                // eslint-disable-next-line no-undef
+                URL.revokeObjectURL(img.src);
+            };
+            // eslint-disable-next-line no-undef
+            img.src = URL.createObjectURL(file);
+        }
+
         try {
             setUploading(true);
             const token = localStorage.getItem("token");
