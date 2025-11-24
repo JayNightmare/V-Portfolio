@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { motion } from "motion/react";
 import { useEffect, useState } from "react";
 import { fetchGalleryItems } from "../services/api";
+import Footer from "../components/Footer";
 
 const TYPE_LABELS = {
     animation: "Animation",
@@ -83,6 +84,7 @@ export default function ExtraGallery() {
                     </Link>
                 </div>
             </section>
+            <Footer />
         </main>
     );
 }
