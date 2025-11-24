@@ -86,3 +86,24 @@ export const deleteGalleryItem = async (id, token) => {
 
     return response.json();
 };
+
+export const uploadImage = async (file, token) => {
+    // eslint-disable-next-line no-undef
+    const formData = new FormData();
+    formData.append("image", file);
+
+    const response = await fetch(`${API_URL}/upload`, {
+        method: "POST",
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+    });
+
+    if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Failed to upload image");
+    }
+
+    return response.json();
+};
