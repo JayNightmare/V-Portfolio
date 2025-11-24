@@ -20,7 +20,7 @@ const ImageScrub = ({
     return (
         <div
             ref={containerRef}
-            className="relative aspect-[3/4] w-full overflow-hidden rounded-3xl border border-slate-800/60 bg-slate-900/40 shadow-2xl"
+            className="relative aspect-video w-full max-w-3xl mx-auto overflow-hidden rounded-3xl border border-slate-800/60 bg-slate-900/40 shadow-2xl"
         >
             {images.map((image, index) => (
                 <img
