@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion } from "motion/react";
-import galleryItems from "../data/galleryItems.json";
+import { useEffect, useState } from "react";
+import { fetchGalleryItems } from "../services/api";
 
 const TYPE_LABELS = {
     animation: "Animation",
@@ -10,6 +11,20 @@ const TYPE_LABELS = {
 };
 
 export default function ExtraGallery() {
+    const [items, setItems] = useState([]);
+
+    useEffect(() => {
+        const loadItems = async () => {
+            try {
+                const data = await fetchGalleryItems();
+                setItems(data);
+            } catch (error) {
+                console.error("Failed to load gallery items:", error);
+            }
+        };
+        loadItems();
+    }, []);
+
     return (
         <main className="w-full bg-slate-950 text-white">
             <section className="mx-auto w-full max-w-6xl px-6 py-24">
@@ -27,7 +42,7 @@ export default function ExtraGallery() {
                 </header>
 
                 <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-                    {galleryItems.map((item) => (
+                    {items.map((item) => (
                         <Link
                             key={item.slug}
                             to={`/gallery/${item.slug}`}

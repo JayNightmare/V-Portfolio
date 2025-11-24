@@ -1,11 +1,24 @@
 import { Link } from "react-router-dom";
 import { motion } from "motion/react";
-import galleryItems from "../data/galleryItems.json";
+import { useEffect, useState } from "react";
+import { fetchGalleryItems } from "../services/api";
 
 const FEATURED_COUNT = 3;
 
 export default function GallerySection() {
-    const featured = galleryItems.slice(0, FEATURED_COUNT);
+    const [featured, setFeatured] = useState([]);
+
+    useEffect(() => {
+        const loadItems = async () => {
+            try {
+                const items = await fetchGalleryItems();
+                setFeatured(items.slice(0, FEATURED_COUNT));
+            } catch (error) {
+                console.error("Failed to load gallery items:", error);
+            }
+        };
+        loadItems();
+    }, []);
 
     return (
         <section id="gallery" className="bg-slate-100 py-24 text-slate-900">

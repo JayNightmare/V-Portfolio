@@ -1,7 +1,6 @@
 import ImageScrub from "../animations/ImageScrub";
 import { useMemo, useState } from "react";
 import { motion } from "motion/react";
-import galleryItems from "../data/galleryItems.json";
 import { Link } from "react-router-dom";
 
 export const TYPE_LABELS = {
@@ -132,13 +131,13 @@ export function TimelineSection({ frames = [] }) {
     );
 }
 
-export function ViewMoreSection({ currentSlug, type }) {
+export function ViewMoreSection({ currentSlug, type, allItems = [] }) {
     const matching = useMemo(
         () =>
-            galleryItems.filter(
+            allItems.filter(
                 (item) => item.type === type && item.slug !== currentSlug
             ),
-        [currentSlug, type]
+        [currentSlug, type, allItems]
     );
 
     if (!matching.length) {

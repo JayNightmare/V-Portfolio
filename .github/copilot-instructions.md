@@ -10,7 +10,11 @@
 ## Architecture & Patterns
 
 -   **Entry Point:** `src/main.jsx` mounts the app. `src/App.jsx` handles routing and `AnimatePresence`.
--   **Data Flow:** Static data driven by `src/data/galleryItems.json`. No backend API currently.
+-   **Backend:** Node.js/Express server in `server/` directory.
+-   **Database:** MongoDB for storing gallery items and admin credentials.
+-   **Data Flow:**
+    -   Public: React fetches gallery items from `/api/gallery`.
+    -   Admin: Protected routes `/admin/*` for CMS functionality.
 -   **Routing:**
     -   Routes defined in `src/App.jsx`.
     -   Uses `AnimatePresence` with `mode="wait"` for smooth page transitions.
@@ -26,16 +30,22 @@
 -   `src/components/`: Reusable UI blocks (e.g., `Gallery.jsx`, `Hero.jsx`).
 -   `src/animations/`: Specialized animation components (e.g., `ImageScrub.jsx`).
 -   `src/hooks/`: Custom logic (e.g., `useImageScrub.js` for frame scrubbing logic).
+-   `server/`: Backend API and database models.
+    -   `server/models/`: Mongoose schemas.
+    -   `server/routes/`: API endpoints.
 
 ## Development Workflow
 
--   **Start Dev Server:** `npm run dev`
+-   **Start Dev Server:** `npm run dev` (Frontend)
+-   **Start Backend:** `cd server && npm run dev`
 -   **Build:** `npm run build`
 -   **Lint:** `npm run lint`
 -   **Deployment:**
     -   Deploys to Linode via GitHub Actions (`.github/workflows/deploy.yml`).
-    -   Uses `easingthemes/ssh-deploy` to rsync `dist/` to the server.
-    -   Requires GitHub Secrets: `LINODE_HOST`, `LINODE_USER`, `LINODE_SSH_KEY`, `LINODE_TARGET_DIR`.
+    -   **Frontend:** Rsyncs `dist/` to `/var/www/v-portfolio`.
+    -   **Backend:** Rsyncs `server/` to `/var/www/v-portfolio-server`, installs dependencies, and restarts PM2.
+    -   Requires GitHub Secrets: `LINODE_HOST`, `LINODE_USER`, `LINODE_SSH_KEY`, `LINODE_TARGET_DIR` (Frontend path).
+    -   **Server Config:** Nginx serves frontend and reverse proxies `/api` to localhost:5000.
 
 ## Coding Conventions
 

@@ -26,7 +26,7 @@ jobs:
       - name: Build application
         run: npm run build
 
-      - name: Deploy to Linode via Rsync
+      - name: Deploy Frontend to Linode
         uses: easingthemes/ssh-deploy@v5.0.0
         with:
           SSH_PRIVATE_KEY: ${{ secrets.LINODE_SSH_KEY }}
@@ -35,4 +35,18 @@ jobs:
           REMOTE_HOST: ${{ secrets.LINODE_HOST }}
           REMOTE_USER: ${{ secrets.LINODE_USER }}
           TARGET: ${{ secrets.LINODE_TARGET_DIR }}
-          # EXCLUDE: "/dist/, /node_modules/"
+
+      - name: Deploy Backend to Linode
+        uses: easingthemes/ssh-deploy@v5.0.0
+        with:
+          SSH_PRIVATE_KEY: ${{ secrets.LINODE_SSH_KEY }}
+          ARGS: "-rlgoDzvc -i"
+          SOURCE: "server/"
+          REMOTE_HOST: ${{ secrets.LINODE_HOST }}
+          REMOTE_USER: ${{ secrets.LINODE_USER }}
+          TARGET: "/var/www/v-portfolio-server/"
+          SCRIPT_AFTER: |
+            cd /var/www/v-portfolio-server
+            npm install --production
+            pm2 reload ecosystem.config.cjs --env production || pm2 start ecosystem.config.cjs --env production
+            pm2 save

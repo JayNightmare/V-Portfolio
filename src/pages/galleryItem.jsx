@@ -1,7 +1,7 @@
-import { useMemo } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { motion } from "motion/react";
-import galleryItems from "../data/galleryItems.json";
+import { fetchGalleryItems } from "../services/api";
 import FooterSection from "../components/Footer";
 import {
     TYPE_LABELS,
@@ -14,11 +14,35 @@ export default function GalleryItemPage() {
     const { slug } = useParams();
     const navigate = useNavigate();
     const location = useLocation();
+    const [items, setItems] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const loadItems = async () => {
+            try {
+                const data = await fetchGalleryItems();
+                setItems(data);
+            } catch (error) {
+                console.error("Failed to load gallery items:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        loadItems();
+    }, []);
 
     const item = useMemo(
-        () => galleryItems.find((entry) => entry.slug === slug),
-        [slug]
+        () => items.find((entry) => entry.slug === slug),
+        [slug, items]
     );
+
+    if (loading) {
+        return (
+            <main className="flex min-h-screen items-center justify-center bg-slate-950 px-6 text-center text-white">
+                <div className="animate-pulse">Loading...</div>
+            </main>
+        );
+    }
 
     if (!item) {
         return (
@@ -158,7 +182,11 @@ export default function GalleryItemPage() {
                     <LayeredArtPreview layers={item.layers} />
                 ) : null}
 
-                <ViewMoreSection currentSlug={item.slug} type={item.type} />
+                <ViewMoreSection
+                    currentSlug={item.slug}
+                    type={item.type}
+                    allItems={items}
+                />
             </div>
 
             <FooterSection />
