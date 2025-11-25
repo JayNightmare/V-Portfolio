@@ -1,5 +1,26 @@
 import useImageScrub from "../hooks/useImageScrub";
 
+/**
+ * ImageScrub Component
+ * @param {Object} props - Component props
+ * @param {string[]} props.images - Array of image URLs to be used as frames for scrubbing
+ * @param {boolean} [props.autoplay=true] - Enable/disable autoplay scrubbing
+ * @param {number} [props.duration=1400] - Time in milliseconds for a full scrub cycle
+ * @param {string} [props.size="aspect-video"] - Aspect ratio classes (e.g., "aspect-video", "aspect-square")
+ * @param {boolean} [props.loop=false] - Enable/disable looping of the scrub animation
+ * @returns {JSX.Element} ImageScrub component
+ * @example
+ * <ImageScrub
+ *     images={HERO_FRAMES}
+ *    duration={5600}
+ *    size={"aspect-[4/3]"}
+ * />
+ *
+ * @description
+ * The ImageScrub component displays a series of images that can be scrubbed through
+ * by moving the mouse over the component. It supports autoplay functionality and
+ * allows customization of the aspect ratio and looping behavior.
+ */
 const ImageScrub = ({
     images = [],
     autoplay = true,
