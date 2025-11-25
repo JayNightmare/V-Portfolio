@@ -55,7 +55,7 @@ export default function HeroSection() {
                     <ImageScrub
                         images={HERO_FRAMES}
                         duration={5600}
-                        size={"3/4"}
+                        size={"aspect-4/3"}
                     />
                 </div>
             </div>
