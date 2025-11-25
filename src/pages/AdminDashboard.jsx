@@ -118,9 +118,18 @@ export default function AdminDashboard() {
                 {view === "list" && (
                     <div className="space-y-6">
                         <div className="flex justify-between items-center">
-                            <h2 className="text-2xl font-bold">
-                                Gallery Items
-                            </h2>
+                            <div>
+                                <h2 className="text-2xl font-bold">
+                                    Gallery Items
+                                </h2>
+                                {/* Preview Button -> bring to gallery page */}
+                                <button
+                                    onClick={() => navigate("/gallery")}
+                                    className="mt-1 text-sm text-slate-400 hover:text-slate-200"
+                                >
+                                    Preview Gallery
+                                </button>
+                            </div>
                             <button
                                 onClick={() => setView("create")}
                                 className="rounded-full bg-sky-600 px-6 py-2 text-sm font-bold uppercase tracking-wider text-white hover:bg-sky-500 transition shadow-lg shadow-sky-900/20"

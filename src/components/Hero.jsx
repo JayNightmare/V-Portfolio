@@ -52,7 +52,11 @@ export default function HeroSection() {
                 </div>
 
                 <div className="w-full max-w-xl">
-                    <ImageScrub images={HERO_FRAMES} duration={5600} />
+                    <ImageScrub
+                        images={HERO_FRAMES}
+                        duration={5600}
+                        size={"3/4"}
+                    />
                 </div>
             </div>
         </section>

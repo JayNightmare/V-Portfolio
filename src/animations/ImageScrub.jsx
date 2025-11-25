@@ -4,6 +4,7 @@ const ImageScrub = ({
     images = [],
     autoplay = true,
     duration = 1400,
+    size = "video",
     loop = false,
 }) => {
     const { containerRef, activeIndex } = useImageScrub({
@@ -20,7 +21,7 @@ const ImageScrub = ({
     return (
         <div
             ref={containerRef}
-            className="relative aspect-video w-full max-w-3xl mx-auto overflow-hidden rounded-3xl border border-slate-800/60 bg-slate-900/40 shadow-2xl"
+            className={`relative aspect-${size} w-full max-w-3xl mx-auto overflow-hidden rounded-3xl border border-slate-800/60 bg-slate-900/40 shadow-2xl`}
         >
             {images.map((image, index) => (
                 <img
